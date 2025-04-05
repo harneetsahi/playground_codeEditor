@@ -1,33 +1,27 @@
-import { useEffect, useRef, useState } from "react";
-import { EditorState } from "@codemirror/state";
+import { useState } from "react";
+import Editor from "./Editor";
 import { EditorView } from "@codemirror/view";
-import { basicSetup } from "codemirror";
-import { javascript } from "@codemirror/lang-javascript";
 
-function App() {
-  const editorRef = useRef(null);
+const App = () => {
+  const [view, setView] = useState(null);
 
-  useEffect(() => {
-    const state = EditorState.create({
-      doc: 'console.log("Hello world")',
-      extensions: [basicSetup, javascript()],
-    });
+  const formatCode = () => {
+    if (view === null) return;
 
-    const view = new EditorView({
-      state,
-      parent: editorRef.current,
-    });
+    const code = view.state.doc.toString();
 
-    return () => {
-      view.destroy();
-    };
-  }, [editorRef.current]);
+    try {
+      new Function(code)();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
-      <div ref={editorRef} style={{ margin: "1rem" }}></div>;
+      <Editor setView={setView} />
     </>
   );
-}
+};
 
 export default App;
