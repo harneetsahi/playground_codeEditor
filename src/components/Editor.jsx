@@ -3,6 +3,7 @@ import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 import { basicSetup } from "codemirror";
 import { javascript } from "@codemirror/lang-javascript";
+import { autocompletion } from "@codemirror/autocomplete";
 
 function Editor({ setView }) {
   const editorRef = useRef(null);
@@ -11,17 +12,8 @@ function Editor({ setView }) {
     if (editorRef === null) return;
 
     const state = EditorState.create({
-      doc: 'console.log("Hello world")',
-      extensions: [
-        basicSetup,
-        javascript(),
-        EditorView.theme({
-          ".cm-content": { color: "#2b80bb", backgroundColor: "#fef2e9" },
-          "&.cm-focused .cm-content": {
-            color: "green",
-          },
-        }),
-      ],
+      doc: 'console.log("Hello world");',
+      extensions: [basicSetup, javascript(), autocompletion()],
     });
 
     const view = new EditorView({
