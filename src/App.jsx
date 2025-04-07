@@ -31,39 +31,41 @@ const App = () => {
   }
 
   function handleContextMenu(e) {
-    e.preventDefault();
+    if (e.shiftKey) {
+      e.preventDefault();
 
-    const contextMenuProps = contextMenuRef.current.getBoundingClientRect();
+      const contextMenuProps = contextMenuRef.current.getBoundingClientRect();
 
-    console.log(contextMenuProps);
-    console.log(e.clientX);
+      console.log(contextMenuProps);
+      console.log(e.clientX);
 
-    const leftPosition = e.clientX < 500 / 2; // because I set the editor width to 500
+      const leftPosition = e.clientX < 500 / 2; // because I set the editor width to 500
 
-    const topPosition = e.clientY < 300 / 2;
+      const topPosition = e.clientY < 300 / 2;
 
-    let x;
-    let y;
+      let x;
+      let y;
 
-    if (leftPosition) {
-      x = e.clientX;
-    } else {
-      x = e.clientX - contextMenuProps.width;
+      if (leftPosition) {
+        x = e.clientX;
+      } else {
+        x = e.clientX - contextMenuProps.width;
+      }
+
+      if (topPosition) {
+        y = e.clientY;
+      } else {
+        y = e.clientY - contextMenuProps.height;
+      }
+
+      setContextMenu({
+        position: {
+          x: x,
+          y: y,
+        },
+        toggled: true,
+      });
     }
-
-    if (topPosition) {
-      y = e.clientY;
-    } else {
-      y = e.clientY - contextMenuProps.height;
-    }
-
-    setContextMenu({
-      position: {
-        x: x,
-        y: y,
-      },
-      toggled: true,
-    });
   }
 
   useEffect(() => {
