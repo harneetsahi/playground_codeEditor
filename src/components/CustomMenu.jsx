@@ -9,8 +9,9 @@ function CustomMenu({ onAction, mouseX, mouseY, isToggled, contextMenuRef }) {
           zIndex: "10",
           flexDirection: "column",
           width: "100px",
-          border: "1px solid grey",
+          padding: "2px 10px",
           borderRadius: "5px",
+          backgroundColor: "rgba(82, 82, 82, 0.98)",
           position: "absolute",
           top: mouseY,
           left: mouseX,
@@ -19,9 +20,12 @@ function CustomMenu({ onAction, mouseX, mouseY, isToggled, contextMenuRef }) {
         <button
           onClick={() => onAction("reference")}
           style={{
-            border: "1px solid rgb(255, 255, 255)",
-            padding: "10px",
-            borderRadius: "2px",
+            padding: "8px",
+            textAlign: "left",
+            border: "none",
+            borderBottom: "1px solid rgb(111, 110, 110)",
+            backgroundColor: "transparent",
+            color: "white",
           }}
         >
           References
@@ -29,9 +33,12 @@ function CustomMenu({ onAction, mouseX, mouseY, isToggled, contextMenuRef }) {
         <button
           onClick={() => onAction("cut")}
           style={{
-            border: "1px solid rgb(255, 255, 255)",
-            padding: "10px",
-            borderRadius: "2px",
+            padding: "8px",
+            textAlign: "left",
+            border: "none",
+            borderBottom: "1px solid rgb(111, 110, 110)",
+            backgroundColor: "transparent",
+            color: "white",
           }}
         >
           Cut
@@ -39,9 +46,11 @@ function CustomMenu({ onAction, mouseX, mouseY, isToggled, contextMenuRef }) {
         <button
           onClick={() => onAction("copy")}
           style={{
-            border: "1px solid rgb(255, 255, 255)",
-            padding: "10px",
-            borderRadius: "2px",
+            padding: "8px",
+            textAlign: "left",
+            backgroundColor: "transparent",
+            color: "white",
+            border: "none",
           }}
         >
           Copy

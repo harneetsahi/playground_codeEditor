@@ -21,12 +21,10 @@ const App = () => {
       <div
         style={{
           position: "relative",
-          height: "300",
-          width: "700px",
           border: "1px solid grey",
         }}
       >
-        <Editor setView={setView} style={{ height: "500px" }} />
+        <Editor setView={setView} />
       </div>
     </>
   );
