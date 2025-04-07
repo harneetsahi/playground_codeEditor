@@ -6,7 +6,7 @@ function CustomMenu({ onAction, mouseX, mouseY, isToggled, contextMenuRef }) {
         className="custom-menu"
         style={{
           display: `${isToggled ? "flex" : "none"}`,
-
+          zIndex: "10",
           flexDirection: "column",
           width: "100px",
           border: "1px solid grey",
