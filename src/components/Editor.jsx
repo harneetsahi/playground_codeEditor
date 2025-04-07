@@ -23,9 +23,9 @@ function Editor({ setView }) {
     if (editorRef.current === null) return;
 
     const state = EditorState.create({
-      doc: `console.log("Hello world");
+      doc: `console.log("custom context menu");
 
-Press "shift + right click" within the editor lines 1-6
+Hold "shift" when right clicking within the editor (lines 1-6)
 to access custom context menu
 
       `,
@@ -55,29 +55,14 @@ to access custom context menu
     if (e.shiftKey) {
       e.preventDefault();
 
-      const contextMenuProps = contextMenuRef.current.getBoundingClientRect();
+      const contextMenuRect = contextMenuRef.current.getBoundingClientRect();
+      const editorRect = editorRef.current.getBoundingClientRect();
 
-      console.log(contextMenuProps);
-      console.log(e.clientX);
+      let x = e.clientX - editorRect.left;
+      let y = e.clientY - editorRect.top;
 
-      const leftPosition = e.clientX < 500 / 2; // because I set the editor width to 500
-
-      const topPosition = e.clientY < 300 / 2;
-
-      let x;
-      let y;
-
-      if (leftPosition) {
-        x = e.clientX;
-      } else {
-        x = e.clientX - contextMenuProps.width;
-      }
-
-      if (topPosition) {
-        y = e.clientY;
-      } else {
-        y = e.clientY - contextMenuProps.height;
-      }
+      x = Math.min(Math.max(x, 0), editorRect.width - contextMenuRect.width);
+      y = Math.min(Math.max(y, 0), editorRect.height - contextMenuRect.height);
 
       setContextMenu({
         position: {
@@ -91,7 +76,6 @@ to access custom context menu
 
   useEffect(() => {
     function handler(e) {
-      console.log(e.target);
       if (contextMenuRef.current) {
         if (!contextMenuRef.current.contains(e.target)) {
           setContextMenu({
@@ -124,7 +108,7 @@ to access custom context menu
       <section
         onContextMenu={(e) => handleContextMenu(e)}
         ref={editorRef}
-        style={{ margin: "1rem" }}
+        style={{ padding: "1rem" }}
       ></section>
     </>
   );
