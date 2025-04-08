@@ -9,11 +9,11 @@ const App = () => {
 
     const code = view.state.doc.toString();
 
-    // try {
-    //   new Function(code)();
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      console.log("executing code");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
